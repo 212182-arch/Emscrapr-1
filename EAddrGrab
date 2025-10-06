@@ -20,4 +20,6 @@ for n in a:
     svr.mail('212182@isd622.org')
     code, message = svr.rcpt(str("212182@isd622.org"))
     svr.quit()
-    f.write(str(n)+"@isd622.org, \n")
+    
+    if code == 250:
+        f.write(str(n)+"@isd622.org, \n")
