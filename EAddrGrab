@@ -7,13 +7,10 @@ records = dns.resolver.resolve('isd622.org', 'MX')
 mxRec = records[0].exchange
 mxRec = str(mxRec)
 
-a = range(100000,100002)
+a = range(128403,283148)
 
 f = open('list.txt', 'a')
-if os.path.exists("blklist.txt"):
-    fr = open('blklist.txt', 'a')
-else:
-    fr = open('blklist.txt', 'a')
+fr = open('blklist.txt', 'w')
 
 for n in a:
     email = str(n)+"@isd622.org, \n"
@@ -29,5 +26,7 @@ for n in a:
     
     if code == 250:
         f.write(email)
+        print(str(n)+"@isd622.org = Verified", end='\r')
     else:
         fr.write(email)
+        print(str(n)+"@isd622.org = Blacklisted", end='\r')
