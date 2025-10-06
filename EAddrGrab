@@ -1,6 +1,7 @@
 import dns.resolver
 import socket
 import smtplib
+import os
 
 records = dns.resolver.resolve('isd622.org', 'MX')
 mxRec = records[0].exchange
@@ -8,7 +9,11 @@ mxRec = str(mxRec)
 
 a = range(100000,100002)
 
-f = open('list.txt', 'w')
+f = open('list.txt', 'a')
+if os.path.exists("blklist.txt"):
+    fr = open('blklist.txt', 'a')
+else:
+    fr = open('blklist.txt', 'a')
 
 for n in a:
     email = str(n)+"@isd622.org, \n"
@@ -24,3 +29,5 @@ for n in a:
     
     if code == 250:
         f.write(email)
+    else:
+        fr.write(email)
