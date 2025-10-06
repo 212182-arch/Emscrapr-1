@@ -2,7 +2,7 @@ import dns.resolver
 import socket
 import smtplib
 
-records = dns.resolver.query('scottbrady91.com', 'MX')
+records = dns.resolver.resolve('isd622.org', 'MX')
 mxRec = records[0].exchange
 mxRec = str(mxRec)
 
@@ -11,6 +11,7 @@ a = range(100000,100002)
 f = open('list.txt', 'w')
 
 for n in a:
+    email = str(n)+"@isd622.org, \n"
     host = socket.gethostname()
     svr = smtplib.SMTP()
     svr.set_debuglevel(0)
@@ -18,8 +19,8 @@ for n in a:
     svr.connect(mxRec)
     svr.helo(host)
     svr.mail('212182@isd622.org')
-    code, message = svr.rcpt(str("212182@isd622.org"))
+    code, message = svr.rcpt(str(email))
     svr.quit()
     
     if code == 250:
-        f.write(str(n)+"@isd622.org, \n")
+        f.write(email)
